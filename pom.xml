@@ -282,5 +282,11 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>quick-code-center</name>
+            <url>https://maven.pkg.github.com/WEIQ311/quick-code-center</url>
+        </repository>
+    </distributionManagement>
 </project>
