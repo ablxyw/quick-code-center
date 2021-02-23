@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ablxyw.mapper.SysJobConfigMapper">
+
+    <!--分布式定时任务配置列映射-->
+    <resultMap type="cn.ablxyw.entity.SysJobConfigEntity" id="SysJobConfigEntityMap">
+        <result property="id" column="id"/>
+        <result property="jobName" column="job_name"/>
+        <result property="jobGroup" column="job_group"/>
+        <result property="jobClass" column="job_class"/>
+        <result property="status" column="status"/>
+        <result property="startTime" column="start_time"/>
+        <result property="interval" column="interval"/>
+        <result property="endTime" column="end_time"/>
+        <result property="cronExpression" column="cron_expression"/>
+        <result property="jobDataMap" column="job_data_map"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <!--分布式定时任务配置列集合-->
+    <sql id="BASE_COLUMN">
+        `id`, `job_name`, `job_group`, `job_class`, `status`, `start_time`, `interval`, `end_time`, `cron_expression`, `job_data_map`, `remark`, `create_time`, `update_time`
+    </sql>
+
+    <!--分布式定时任务配置表名-->
+    <sql id="BASE_TABLE">
+        sys_job_config
+    </sql>
+
+    <!--分布式定时任务配置查询SQL-->
+    <sql id="BASE_QUERY">
+        <!--根据主键查询需要补充在下面-->
+        <where>
+            <if test="id != null  and id != ''">
+                AND `id` = #{id}
+            </if>
+            <if test="jobName != null  and jobName != ''">
+                AND `job_name` like concat('%', #{jobName},'%')
+            </if>
+            <if test="jobGroup != null  and jobGroup != ''">
+                AND `job_group`like concat('%', #{jobGroup},'%')
+            </if>
+            <if test="jobClass != null  and jobClass != ''">
+                AND `job_class` like concat('%', #{jobClass},'%')
+            </if>
+            <if test="status != null ">
+                AND `status` = #{status}
+            </if>
+            <if test="startTime != null ">
+                AND `start_time` = #{startTime}
+            </if>
+            <if test="interval != null ">
+                AND `interval` = #{interval}
+            </if>
+            <if test="endTime != null ">
+                AND `end_time` = #{endTime}
+            </if>
+            <if test="cronExpression != null  and cronExpression != ''">
+                AND `cron_expression` like concat('%', #{cronExpression},'%')
+            </if>
+            <if test="jobDataMap != null ">
+                AND `job_data_map` = #{jobDataMap}
+            </if>
+            <if test="remark != null  and remark != ''">
+                AND `remark` like concat('%', #{remark},'%')
+            </if>
+            <if test="createTime != null ">
+                AND `create_time` = #{createTime}
+            </if>
+            <if test="updateTime != null ">
+                AND `update_time` = #{updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <!--查询分布式定时任务配置-->
+    <select id="list" resultMap="SysJobConfigEntityMap" flushCache="true">
+        SELECT
+        job.* ,
+        info.prev_fire_time,
+        info.next_fire_time,
+        info.repeat_count,
+        info.times_triggered
+        FROM
+        <include refid="BASE_TABLE"/>
+        job
+        left join
+        (<include refid="JOB_INFO_SQL"/>)
+        info on job.job_name = info.job_name and job.job_group=info.job_group
+        <include refid="BASE_QUERY"/>
+        ORDER BY
+        <if test="sort!=null and sort!=''">
+            ${sort}
+        </if>
+        <if test="sort==null or sort==''">
+            id DESC
+        </if>
+    </select>
+
+    <!--查询分布式定时任务配置条数-->
+    <select id="countTotal" resultType="integer">
+        SELECT COUNT(1) FROM
+        <include refid="BASE_TABLE"/>
+        <include refid="BASE_QUERY"/>
+    </select>
+
+    <!--根据主键查询分布式定时任务配置-->
+    <select id="findById" resultType="cn.ablxyw.entity.SysJobConfigEntity">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where `id`=#{id}
+    </select>
+
+    <!--查询定时任务执行详情-->
+    <sql id="JOB_INFO_SQL">
+        SELECT qt.trigger_name  job_name,
+               qt.trigger_group job_group,
+               qt.prev_fire_time,
+               qt.next_fire_time,
+               qst.repeat_count,
+               qst.times_triggered
+        from quick_triggers qt
+                 LEFT JOIN
+             quick_simple_triggers qst on qt.trigger_group = qst.trigger_group and qt.trigger_name = qst.trigger_name
+    </sql>
+
+    <!--查询定时任务执行详情-->
+    <select id="jobExecute" resultType="map">
+        <include refid="JOB_INFO_SQL"/>
+    </select>
+
+    <!--批量插入分布式定时任务配置-->
+    <insert id="batchInsert" flushCache="true">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        ( `id`,
+        `job_name`,
+        `job_group`,
+        `job_class`,
+        `status`,
+        `start_time`,
+        `interval`,
+        `end_time`,
+        `cron_expression`,
+        `job_data_map`,
+        `remark`,
+        `create_time`,
+        `update_time`
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.id},
+            #{item.jobName},
+            #{item.jobGroup},
+            #{item.jobClass},
+            #{item.status},
+            #{item.startTime},
+            #{item.interval},
+            #{item.endTime},
+            #{item.cronExpression},
+            #{item.jobDataMap},
+            #{item.remark},
+            now(),
+            now()
+            )
+        </foreach>
+    </insert>
+
+    <!--批量更新分布式定时任务配置-->
+    <update id="batchUpdate" flushCache="true">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE
+            <include refid="BASE_TABLE"/>
+            <set>
+                <if test="item.jobName != null  and item.jobName != ''">
+                    job_name = #{item.jobName},
+                </if>
+                <if test="item.jobGroup != null  and item.jobGroup != ''">
+                    `job_group` = #{item.jobGroup},
+                </if>
+                <if test="item.jobClass != null  and item.jobClass != ''">
+                    `job_class` = #{item.jobClass},
+                </if>
+                <if test="item.status != null ">
+                    `status` = #{item.status},
+                </if>
+                <if test="item.startTime != null ">
+                    `start_time` = #{item.startTime},
+                </if>
+                <if test="item.interval != null ">
+                    `interval` = #{item.interval},
+                </if>
+                <if test="item.endTime != null ">
+                    `end_time` = #{item.endTime},
+                </if>
+                <if test="item.cronExpression != null  and item.cronExpression != ''">
+                    `cron_expression` = #{item.cronExpression},
+                </if>
+                <if test="item.jobDataMap != null ">
+                    `job_data_map` = #{item.jobDataMap},
+                </if>
+                <if test="item.remark != null">
+                    `remark` = #{item.remark},
+                </if>
+                `update_time` = now()
+            </set>
+            WHERE `id` = #{item.id}
+        </foreach>
+    </update>
+
+    <!--批量删除分布式定时任务配置-->
+    <delete id="batchDelete" flushCache="true">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE
+        `id` IN
+        <foreach collection="list" item="item" index="no" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

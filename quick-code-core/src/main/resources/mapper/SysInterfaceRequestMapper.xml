@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ablxyw.mapper.SysInterfaceRequestMapper">
+
+    <!--接口请求日志列映射-->
+    <resultMap type="cn.ablxyw.entity.SysInterfaceRequestEntity" id="SysInterfaceRequestEntityMap">
+        <result property="requestId" column="request_id"/>
+        <result property="datasourceId" column="datasource_id"/>
+        <result property="configId" column="config_id"/>
+        <result property="requestUri" column="request_uri"/>
+        <result property="requestType" column="request_type"/>
+        <result property="requestParam" column="request_param"/>
+        <result property="querySql" column="query_sql"/>
+        <result property="requestTime" column="request_time"/>
+        <result property="clientIp" column="client_ip"/>
+        <result property="serverIp" column="server_ip"/>
+        <result property="success" column="success"/>
+        <result property="message" column="message"/>
+        <result property="dataSize" column="data_size"/>
+        <result property="browserName" column="browser_name"/>
+        <result property="browserVersion" column="browser_version"/>
+        <result property="osName" column="os_name"/>
+        <result property="beginTime" column="begin_time"/>
+        <result property="endTime" column="end_time"/>
+    </resultMap>
+
+    <!--接口请求日志列集合-->
+    <sql id="BASE_COLUMN">
+        `request_id`,
+        `datasource_id`,
+        `config_id`,
+        `request_uri`,
+        `request_type`,
+        `request_param`,
+        `query_sql`,
+        `request_time`,
+        `client_ip`,
+        `server_ip`,
+        `success`,
+        `message`,
+        `data_size`,
+        `browser_name`,
+        `browser_version`,
+        `os_name`,
+        `begin_time`,
+        `end_time`
+    </sql>
+
+    <!--接口请求日志表名-->
+    <sql id="BASE_TABLE">
+        `sys_interface_request`
+    </sql>
+
+    <!--接口请求日志查询SQL-->
+    <sql id="BASE_QUERY">
+        <where>
+            <if test="requestId != null  and requestId != ''">
+                AND `request_id`=#{requestId}
+            </if>
+            <if test="datasourceId != null  and datasourceId != ''">
+                AND `datasource_id` = #{datasourceId}
+            </if>
+            <if test="configId != null  and configId != ''">
+                AND `config_id` = #{configId}
+            </if>
+            <if test="requestUri != null  and requestUri != ''">
+                AND `request_uri` like concat ('%',#{requestUri},'%')
+            </if>
+            <if test="requestType != null  and requestType != ''">
+                AND `request_type` = #{requestType}
+            </if>
+            <if test="requestParam != null  and requestParam != ''">
+                AND `request_param` like concat ('%',#{requestParam},'%')
+            </if>
+            <if test="querySql != null  and querySql != ''">
+                AND `query_sql` like concat ('%',#{querySql},'%')
+            </if>
+            <if test="requestTime != null">
+                AND `request_time` = #{requestTime}
+            </if>
+            <if test="clientIp != null  and clientIp != ''">
+                AND `client_ip` like concat ('%',#{clientIp},'%')
+            </if>
+            <if test="serverIp != null  and serverIp != ''">
+                AND `server_ip` like concat ('%',#{serverIp},'%')
+            </if>
+            <if test="success != null">
+                AND `success` = #{success}
+            </if>
+            <if test="message != null  and message != ''">
+                AND `message` like concat ('%', #{message},'%')
+            </if>
+            <if test="dataSize != null ">
+                AND `data_size` = #{dataSize}
+            </if>
+            <if test="browserName != null  and browserName != ''">
+                AND `browser_name` like concat ('%', #{browserName},'%')
+            </if>
+            <if test="browserVersion != null  and browserVersion != ''">
+                AND `browser_version` like concat ('%', #{browserVersion},'%')
+            </if>
+            <if test="osName != null  and osName != ''">
+                AND `os_name` like concat ('%', #{osName},'%')
+            </if>
+            <if test="beginTime != null ">
+                AND `begin_time` = #{beginTime}
+            </if>
+            <if test="endTime != null ">
+                AND `end_time` = #{endTime}
+            </if>
+        </where>
+    </sql>
+
+    <!--查询接口请求日志-->
+    <select id="list" resultMap="SysInterfaceRequestEntityMap" flushCache="true">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        <include refid="BASE_QUERY"/>
+        ORDER BY
+        <if test="sort!=null and sort!=''">
+            ${sort}
+        </if>
+        <if test="sort==null or sort==''">
+            request_id DESC
+        </if>
+    </select>
+
+    <!--查询接口请求日志条数-->
+    <select id="countTotal" resultType="integer">
+        SELECT COUNT(1) FROM
+        <include refid="BASE_TABLE"/>
+        <include refid="BASE_QUERY"/>
+    </select>
+
+    <!--根据主键查询接口请求日志-->
+    <select id="findById" resultType="integer">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where `request_id`= #{requestId}
+    </select>
+
+    <!--批量插入接口请求日志-->
+    <insert id="batchInsert" flushCache="true">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        ( `request_id`,
+        `datasource_id`,
+        `config_id`,
+        `request_uri`,
+        `request_type`,
+        `request_param`,
+        `query_sql`,
+        `request_time`,
+        `client_ip`,
+        `server_ip`,
+        `success`,
+        `message`,
+        `data_size`,
+        `browser_name`,
+        `browser_version`,
+        `os_name`,
+        `begin_time`,
+        `end_time`
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.requestId},
+            #{item.datasourceId},
+            #{item.configId},
+            #{item.requestUri},
+            #{item.requestType},
+            #{item.requestParam},
+            #{item.querySql},
+            #{item.requestTime},
+            #{item.clientIp},
+            #{item.serverIp},
+            #{item.success},
+            #{item.message},
+            #{item.dataSize},
+            #{item.browserName},
+            #{item.browserVersion},
+            #{item.osName},
+            <if test="item.beginTime != null">
+                #{item.beginTime},
+            </if>
+            <if test="item.beginTime == null">
+                now(),
+            </if>
+            <if test="item.endTime != null">
+                #{item.endTime}
+            </if>
+            <if test="item.endTime == null">
+                now()
+            </if>
+            )
+        </foreach>
+    </insert>
+
+    <!--批量更新接口请求日志-->
+    <update id="batchUpdate" flushCache="true">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE
+            <include refid="BASE_TABLE"/>
+            <set>
+                <if test="item.datasourceId != null  and item.datasourceId != ''">
+                    `datasource_id` = #{item.datasourceId},
+                </if>
+                <if test="item.configId != null  and item.configId != ''">
+                    `config_id` = #{item.configId},
+                </if>
+                <if test="item.requestUri != null  and item.requestUri != ''">
+                    `request_uri` = #{item.requestUri},
+                </if>
+                <if test="item.requestType != null  and item.requestType != ''">
+                    `request_type` = #{item.requestType},
+                </if>
+                <if test="item.requestParam != null  and item.requestParam != ''">
+                    `request_param` = #{item.requestParam},
+                </if>
+                <if test="item.querySql != null  and item.querySql != ''">
+                    `query_sql` = #{item.querySql},
+                </if>
+                <if test="item.requestTime != null">
+                    `request_time` = #{item.requestTime},
+                </if>
+                <if test="item.clientIp != null  and item.clientIp != ''">
+                    `client_ip` = #{item.clientIp},
+                </if>
+                <if test="item.serverIp != null  and item.serverIp != ''">
+                    `server_ip` = #{item.serverIp},
+                </if>
+                <if test="item.success != null">
+                    `success` = #{item.success},
+                </if>
+                <if test="item.message != null  and item.message != ''">
+                    `message` = #{item.message},
+                </if>
+                <if test="item.dataSize != null ">
+                    `data_size` = #{item.dataSize},
+                </if>
+                <if test="item.browserName != null  and item.browserName != ''">
+                    `browser_name` = #{item.browserName},
+                </if>
+                <if test="item.browserVersion != null  and item.browserVersion != ''">
+                    `browser_version` = #{item.browserVersion},
+                </if>
+                <if test="item.osName != null  and item.osName != ''">
+                    `os_name` = #{item.osName},
+                </if>
+                <if test="item.endTime!=null">
+                    `end_time` = #{item.endTime},
+                </if>
+                <if test="item.endTime ==null">
+                    `end_time` = now(),
+                </if>
+            </set>
+            WHERE request_id = #{item.requestId}
+        </foreach>
+    </update>
+
+    <!--批量删除接口请求日志-->
+    <delete id="batchDelete" flushCache="true">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE
+        `request_id` IN
+        <foreach collection="list" item="item" index="no" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>
