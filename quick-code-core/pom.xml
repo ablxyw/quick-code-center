@@ -61,11 +61,4 @@
         <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
         <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
     </build>
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>quick-code-center</name>
-            <url>https://maven.pkg.github.com/WEIQ311/quick-code-center</url>
-        </repository>
-    </distributionManagement>
 </project>
