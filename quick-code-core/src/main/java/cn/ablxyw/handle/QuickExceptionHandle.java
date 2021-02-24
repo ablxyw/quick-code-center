@@ -10,9 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +28,8 @@ import static cn.ablxyw.aspect.CommonAspect.*;
  * @date 2020-01-10
  */
 @Slf4j
-@ControllerAdvice
-public class ExceptionHandle {
+@RestControllerAdvice
+public class QuickExceptionHandle {
 
     /**
      * 异步插入或更新动态接口日志
@@ -60,9 +59,15 @@ public class ExceptionHandle {
         }
     }
 
-
+    /**
+     * 统一异常处理
+     *
+     * @param e        异常
+     * @param request  请求
+     * @param response 响应
+     * @return ResultEntity
+     */
     @ExceptionHandler(value = Exception.class)
-    @ResponseBody
     public ResultEntity handle(Exception e, HttpServletRequest request, HttpServletResponse response) {
         log.error("错误信息:", e);
         String path = request.getRequestURL().toString();
@@ -70,7 +75,7 @@ public class ExceptionHandle {
         if (e instanceof BindException) {
             message = GlobalEnum.TokenParamError.getMessage();
         }
-        if (null != e && e.getStackTrace().length > 0) {
+        if (e.getStackTrace().length > 0) {
             StackTraceElement stackTraceElement = e.getStackTrace()[0];
             String className = stackTraceElement.getClassName();
             String methodName = stackTraceElement.getMethodName();
