@@ -18,6 +18,7 @@
     <modules>
         <module>quick-code-core</module>
         <module>quick-code-job</module>
+        <module>quick-code-flowable</module>
     </modules>
     <properties>
         <!--该版本与依赖spring-boot-starter-parent的版本应一致-->
@@ -48,6 +49,8 @@
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <logstash.version>5.3</logstash.version>
         <sigar.version>1.6.4</sigar.version>
+        <flowable.version>6.6.0</flowable.version>
+        <activiti.version>7.1.0.M6</activiti.version>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -279,6 +282,36 @@
                 <groupId>org.fusesource</groupId>
                 <artifactId>sigar</artifactId>
                 <version>${sigar.version}</version>
+            </dependency>
+            <!--flowable-->
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <!--activiti-spring-boot-starter-->
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <!--activiti-spring-boot-starter-basic-->
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-basic</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <!--activiti-spring-boot-starter-rest-api-->
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-rest-api</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <!--activiti-json-converter-->
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-json-converter</artifactId>
+                <version>${activiti.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

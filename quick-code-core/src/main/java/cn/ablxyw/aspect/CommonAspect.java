@@ -71,7 +71,7 @@ public class CommonAspect {
     /**
      * serverPath
      */
-    @Value("${server.servlet.context-path}")
+    @Value("${server.servlet.context-path:''}")
     private String serverPath;
 
     /**
