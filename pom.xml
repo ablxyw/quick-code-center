@@ -7,7 +7,7 @@
     <groupId>cn.ablxyw</groupId>
     <artifactId>quick-code</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>Q框架旨在为敏捷开发、动态接口、动态SQL、可配置化、动态消息服务</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,7 +18,7 @@
     <modules>
         <module>quick-code-core</module>
         <module>quick-code-job</module>
-        <module>quick-code-flowable</module>
+<!--        <module>quick-code-flowable</module>-->
     </modules>
     <properties>
         <!--该版本与依赖spring-boot-starter-parent的版本应一致-->
@@ -37,7 +37,7 @@
         <ehcache.version>2.10.6</ehcache.version>
         <knife4j.version>2.0.2</knife4j.version>
         <poi-tl.version>1.8.2</poi-tl.version>
-        <quick.version>1.0.0</quick.version>
+        <quick.version>1.0.1</quick.version>
         <jjwt.version>0.9.1</jjwt.version>
         <hutool.version>5.5.2</hutool.version>
         <log4j.version>1.2.9</log4j.version>
@@ -50,7 +50,8 @@
         <logstash.version>5.3</logstash.version>
         <sigar.version>1.6.4</sigar.version>
         <flowable.version>6.6.0</flowable.version>
-        <activiti.version>7.1.0.M6</activiti.version>
+        <activiti.version>5.23.0</activiti.version>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -383,4 +384,60 @@
             <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <jdk>${java.version}</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <!--忽略javadoc报错信息-->
+                            <additionalJOptions>
+                                <additionalJOption>${javadoc.opts}</additionalJOption>
+                            </additionalJOptions>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成asc校验文件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 @Api(tags = "工作流")
 @RestController
 @RequestMapping("/activiti")
-public class BpmController {
+public class ActivitiController {
 
     /**
      * BpmService

@@ -2,10 +2,7 @@ package cn.ablxyw.service.impl;
 
 import cn.ablxyw.service.BpmService;
 import cn.ablxyw.vo.ResultEntity;
-import org.activiti.api.process.model.ProcessDefinition;
-import org.activiti.api.process.runtime.ProcessRuntime;
-import org.activiti.api.runtime.shared.query.Page;
-import org.activiti.api.runtime.shared.query.Pageable;
+
 import org.activiti.bpmn.model.Process;
 import org.activiti.engine.*;
 import org.springframework.beans.factory.annotation.Autowired;
