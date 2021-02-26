@@ -1,0 +1,8 @@
+
+flowable.rest.app.admin.user-id=rest-admin
+flowable.rest.app.admin.password=test
+flowable.rest.app.admin.first-name=Rest
+flowable.rest.app.admin.last-name=Admin
+
+
+flowable
