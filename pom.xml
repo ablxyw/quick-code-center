@@ -52,6 +52,7 @@
         <flowable.version>6.6.0</flowable.version>
         <activiti.version>5.23.0</activiti.version>
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
+        <flink.version>1.12.1</flink.version>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -372,7 +373,18 @@
                 <artifactId>activiti-json-converter</artifactId>
                 <version>${activiti.version}</version>
             </dependency>
+            <!--flink-java-->
             <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-java</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <!--flink-streaming-java_2.12-->
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-streaming-java_2.12</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <distributionManagement>
