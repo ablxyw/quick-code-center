@@ -3,6 +3,7 @@ package cn.ablxyw.aspect;
 
 import cn.ablxyw.config.AsyncRequestLogConfig;
 import cn.ablxyw.entity.SysInterfaceRequestEntity;
+import cn.ablxyw.entity.SysTokenInfo;
 import cn.ablxyw.service.SysTokenInfoService;
 import cn.ablxyw.utils.GlobalUtils;
 import cn.ablxyw.vo.ResultEntity;
@@ -62,6 +63,10 @@ public class CommonAspect {
      * request
      */
     public static ThreadLocal<HttpServletRequest> REQUEST_INFO = new ThreadLocal<>();
+    /**
+     * 登录信息
+     */
+    public static ThreadLocal<SysTokenInfo> SYS_USER_INFO = new ThreadLocal<>();
     /**
      * 忽略日志入库URI
      */
@@ -148,6 +153,7 @@ public class CommonAspect {
             REQUEST_ID.remove();
             REQUEST_PORT.remove();
             REQUEST_INFO.remove();
+            SYS_USER_INFO.remove();
         }
 
     }
@@ -176,13 +182,17 @@ public class CommonAspect {
         String browserVersion = GlobalUtils.getBrowserVersion(request);
         String osName = GlobalUtils.getOsName(request);
         requestUri = requestUri.replaceFirst(GlobalUtils.appendString(serverPath, SLASH_CODE), "");
+        SysTokenInfo sysTokenInfo = SysTokenInfo.builder().build();
         if (enableLogin) {
             //以apiPrefix开头的请求忽略token验证
             boolean ignoreCheckTokenUrl = requestUrl.toString().startsWith(HTTP_CODE + request.getServerName() + INTERVAL_COLON + request.getServerPort() + GlobalUtils.appendString(serverPath, SLASH_CODE, apiPrefix));
             if (!ignoreCheckTokenUrl) {
                 GlobalUtils.checkRequestInfo(request, response, sysTokenInfoService);
             }
+            String token = request.getHeader(TOKEN_HEADER);
+            sysTokenInfo = GlobalUtils.parseJwt(token);
         }
+        SYS_USER_INFO.set(sysTokenInfo);
         response.setHeader("Access-Control-Expose-Headers", "Authorization,token,newToken");
         //TODO 考虑以前前缀开启的情况，例如:sys/*，表示忽略sys下所以的接口
         IGNORE_LOG.set(ignoreLogList.contains(requestUri));
