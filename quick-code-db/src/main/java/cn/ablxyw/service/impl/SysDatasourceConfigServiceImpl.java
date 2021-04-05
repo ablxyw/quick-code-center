@@ -9,7 +9,6 @@ import cn.ablxyw.service.SysDatasourceConfigService;
 import cn.ablxyw.util.DataBaseUtil;
 import cn.ablxyw.utils.AesUtil;
 import cn.ablxyw.utils.GlobalUtils;
-import cn.ablxyw.utils.PageResultUtil;
 import cn.ablxyw.utils.ResultUtil;
 import cn.ablxyw.vo.DataSourcePassword;
 import cn.ablxyw.vo.ResultEntity;
@@ -40,7 +39,8 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static cn.ablxyw.constants.GlobalConstants.*;
+import static cn.ablxyw.constants.GlobalConstants.INTERVAL_COLON;
+import static cn.ablxyw.constants.GlobalConstants.INTERVAL_DB;
 
 /**
  * 数据源配置ServiceImpl
@@ -109,18 +109,11 @@ public class SysDatasourceConfigServiceImpl implements SysDatasourceConfigServic
     @Override
     public ResultEntity list(SysDatasourceConfigEntity sysDatasourceConfig, Integer pageNum, Integer pageSize, String sortName, String sortOrder) {
         PageHelper.startPage(pageNum, pageSize);
-        QueryWrapper<SysDatasourceConfigEntity> queryWrapper = convertWrapper(sysDatasourceConfig);
-        if (StringUtils.isNotBlank(sortName)) {
-            sortName = GlobalUtils.tableColumn(sortName);
-            if (Objects.equals(sortOrder, ORDER_ASC)) {
-                queryWrapper.orderByAsc(sortName);
-            } else {
-                queryWrapper.orderByDesc(sortName);
-            }
-        }
-        List<SysDatasourceConfigEntity> sysDatasourceConfigList = sysDatasourceConfigMapper.selectList(queryWrapper);
-        PageInfo pageInfo = new PageInfo(sysDatasourceConfigList);
-        return PageResultUtil.success(GlobalEnum.QuerySuccess, pageInfo);
+        String sort = GlobalUtils.changeColumn(sortName, sortOrder);
+        sysDatasourceConfig.setSort(sort);
+        List<SysDatasourceConfigEntity> sysDatasourceConfigEntities = sysDatasourceConfigMapper.selectList(convertWrapper(sysDatasourceConfig));
+        PageInfo pageInfo = new PageInfo(sysDatasourceConfigEntities);
+        return ResultUtil.success(GlobalEnum.QuerySuccess, pageInfo);
     }
 
     /**
