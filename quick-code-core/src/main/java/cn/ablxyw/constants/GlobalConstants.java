@@ -653,6 +653,11 @@ public class GlobalConstants {
     public static final String JAVA_SCRIPT = "javascript";
 
     /**
+     * 默认原始ID
+     */
+    public static final String DEFAULT_PARENT_ID = "-1";
+
+    /**
      * 覆盖java默认的证书验证
      */
     public static final TrustManager[] TRUST_ALL_CERTS = new TrustManager[]{new X509TrustManager() {

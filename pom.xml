@@ -18,7 +18,8 @@
     <modules>
         <module>quick-code-core</module>
         <module>quick-code-job</module>
-<!--        <module>quick-code-flowable</module>-->
+        <module>quick-code-db</module>
+        <!--        <module>quick-code-flowable</module>-->
     </modules>
     <properties>
         <!--该版本与依赖spring-boot-starter-parent的版本应一致-->
@@ -53,6 +54,7 @@
         <activiti.version>5.23.0</activiti.version>
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
         <flink.version>1.12.1</flink.version>
+        <mybatis-plus.version>3.3.0</mybatis-plus.version>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -384,6 +386,12 @@
                 <groupId>org.apache.flink</groupId>
                 <artifactId>flink-streaming-java_2.12</artifactId>
                 <version>${flink.version}</version>
+            </dependency>
+            <!--mybatis-plus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
