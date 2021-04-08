@@ -16,13 +16,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Configuration
 @MapperScan({"cn.ablxyw.mapper"})
 public class MybatisPlusConfig {
-    /**
-     * 分页插件
-     */
     @Bean
     public PaginationInterceptor paginationInterceptor() {
-        PaginationInterceptor page = new PaginationInterceptor();
-        page.setDialectType("mysql");
-        return page;
+        return new PaginationInterceptor();
     }
 }

@@ -54,7 +54,7 @@
         <activiti.version>5.23.0</activiti.version>
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
         <flink.version>1.12.1</flink.version>
-        <mybatis-plus.version>3.3.0</mybatis-plus.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
     </properties>
     <dependencies>
         <!--starter-web-->
