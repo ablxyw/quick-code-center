@@ -52,6 +52,7 @@ public class SysDatasourceConfigEntity extends QuickBaseUserInfo implements Seri
     @ApiModelProperty(value = "数据源名称")
     @NotBlank(message = "数据源名称不能为空")
     @Length(max = 255, message = "数据源名称不能多于255个字符")
+    @TableField(value = "datasource_name", condition = SqlCondition.LIKE)
     private String datasourceName;
 
     /**
@@ -60,6 +61,7 @@ public class SysDatasourceConfigEntity extends QuickBaseUserInfo implements Seri
     @NotBlank(message = "连接信息不能为空")
     @Length(max = 400, message = "连接信息不能多于400个字符")
     @ApiModelProperty(value = "连接信息")
+    @TableField(value = "url", condition = SqlCondition.LIKE)
     private String url;
 
     /**
@@ -128,6 +130,7 @@ public class SysDatasourceConfigEntity extends QuickBaseUserInfo implements Seri
      */
     @Length(max = 500, message = "备注不能多于500个字符")
     @ApiModelProperty(value = "备注")
+    @TableField(value = "remark", condition = SqlCondition.LIKE)
     private String remark;
 
     /**

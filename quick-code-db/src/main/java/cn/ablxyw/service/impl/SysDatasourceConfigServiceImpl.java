@@ -295,6 +295,15 @@ public class SysDatasourceConfigServiceImpl implements SysDatasourceConfigServic
             sysDatasourceConfig = SysDatasourceConfigEntity.builder().build();
         }
         QueryWrapper<SysDatasourceConfigEntity> queryWrapper = new QueryWrapper<>(sysDatasourceConfig);
+        if (StringUtils.isNotBlank(sysDatasourceConfig.getDatasourceName())) {
+            queryWrapper.like("datasource_name", sysDatasourceConfig.getDatasourceName());
+        }
+        if (StringUtils.isNotBlank(sysDatasourceConfig.getUrl())) {
+            queryWrapper.like("url", sysDatasourceConfig.getUrl());
+        }
+        if (StringUtils.isNotBlank(sysDatasourceConfig.getRemark())) {
+            queryWrapper.like("remark", sysDatasourceConfig.getRemark());
+        }
         return queryWrapper;
     }
 }
