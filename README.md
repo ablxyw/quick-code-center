@@ -1,5 +1,7 @@
 # 代码集成中心
 
+![jdk](https://img.shields.io/badge/jdk-1.8%2B-orange.svg) ![spring-boot](https://img.shields.io/badge/spring--boot-2.3.7.RELEASE-blue.svg) ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)
+
 1. quick-code-core
 
    公共代码中心
