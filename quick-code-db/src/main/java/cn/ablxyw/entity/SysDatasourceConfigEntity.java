@@ -92,6 +92,7 @@ public class SysDatasourceConfigEntity extends QuickBaseUserInfo implements Seri
     @NotBlank(message = "数据库类型不能为空")
     @Length(max = 255, message = "数据库类型不能多于255个字符")
     @ApiModelProperty(value = "数据库类型")
+    @TableField(value = "database_type", condition = SqlCondition.LIKE)
     private String databaseType;
 
     /**

@@ -12,7 +12,7 @@ import java.io.Serializable;
  * 数据源密码
  *
  * @author weiqiang
- * @date 2020-02-11 8:57 下午
+ * @date 2020-02-11
  */
 @Data
 @Builder

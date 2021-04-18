@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>脚本管理</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="js/layui/css/layui.css"/>
+</head>
+<body>
+<div class="table layui-content" id="table">
+    <div class="scriptTable">
+        函数名称：
+        <div class="layui-inline">
+            <input class="layui-input" name="name" id="nameReload" autocomplete="off">
+        </div>
+        <button class="layui-btn" data-type="reload">搜索</button>
+    </div>
+    <table class="layui-hide" id="tableScript" lay-filter="tableScript">
+    </table>
+</div>
+<script type="text/html" id="barScript">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+    <a class="layui-btn layui-btn-info layui-btn-xs" lay-event="test">连接</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+<script type="text/javascript" src="js/layui/layui.all.js"></script>
+<script src="system/script.js" type="text/javascript"></script>
+</body>
+</html>

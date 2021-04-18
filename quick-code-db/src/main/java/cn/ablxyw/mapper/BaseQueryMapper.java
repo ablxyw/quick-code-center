@@ -20,7 +20,6 @@ public interface BaseQueryMapper {
      *
      * @param jsonObject 查询参数
      * @return List
-     * @Select(value = "<script>${querySql}</script>"),
      * @SelectProvider(type = BaseQueryBuilder.class, method = "baseQueryBuilder")
      */
     @SelectProvider(type = BaseQueryBuilder.class, method = "baseQueryBuilder")

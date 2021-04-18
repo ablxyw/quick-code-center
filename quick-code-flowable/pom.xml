@@ -5,7 +5,7 @@
     <parent>
         <artifactId>quick-code</artifactId>
         <groupId>cn.ablxyw</groupId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -35,7 +35,7 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-basic</artifactId>
-           
+
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -54,7 +54,7 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring-boot-starter-actuator</artifactId>
-           
+
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.boot</groupId>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-rest</artifactId>
-           
+
             <exclusions>
                 <exclusion>
                     <groupId>org.springframework.security</groupId>
@@ -76,7 +76,7 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-explorer</artifactId>
-           
+
             <exclusions>
                 <exclusion>
                     <groupId>com.vaadin</groupId>
@@ -95,17 +95,17 @@
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-diagram-rest</artifactId>
-           
+
         </dependency>
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-simple-workflow</artifactId>
-           
+
         </dependency>
         <dependency>
             <groupId>org.activiti</groupId>
             <artifactId>activiti-spring</artifactId>
-           
+
         </dependency>
         <!--activiti-spring-boot-starter-basic-->
 <!--        <dependency>-->

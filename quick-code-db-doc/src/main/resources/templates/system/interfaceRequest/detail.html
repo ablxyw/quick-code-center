@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <#include "../../include/header.html">
+</head>
+<body>
+<div id="dpCode" class="container-fluid" v-cloak>
+    <table class="form" id="form">
+        <tr v-show="false">
+            <td class="formTitle">数据源Id</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.datasourceId}}
+            </td>
+        </tr>
+        <tr v-show="false">
+            <td class="formTitle">配置Id</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.configId}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求uri</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.requestUri}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求类型</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.requestType}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求参数</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.requestParam}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">查询SQL</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.querySql}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求耗时</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.requestTime}}ms
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">客户端ip</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.clientIp}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">浏览器(版本)</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.browserName}}({{sysInterfaceRequest.browserVersion}})
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">操作系统</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.osName}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">是否成功</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.success?'是':'否'}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">返回信息</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.message}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">数据条数</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.dataSize||0}}
+            </td>
+        </tr>
+        </tr>
+        <tr>
+            <td class="formTitle">请求时间</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.beginTime}}
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">返回时间</td>
+            <td class="formValue">
+                {{sysInterfaceRequest.endTime}}
+            </td>
+        </tr>
+    </table>
+</div>
+<#include "../../include/footer.html">
+<script src="${springMacroRequestContext.contextPath}/js/system/interfaceRequest/detail.js?_${.now?time}"></script>
+</body>
+</html>

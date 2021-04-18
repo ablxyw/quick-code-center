@@ -7,7 +7,7 @@
     <groupId>cn.ablxyw</groupId>
     <artifactId>quick-code</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <description>Q框架旨在为敏捷开发、动态接口、动态SQL、可配置化、动态消息服务</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -19,6 +19,7 @@
         <module>quick-code-core</module>
         <module>quick-code-job</module>
         <module>quick-code-db</module>
+        <module>quick-code-db-doc</module>
         <!--        <module>quick-code-flowable</module>-->
     </modules>
     <properties>
@@ -38,7 +39,7 @@
         <ehcache.version>2.10.6</ehcache.version>
         <knife4j.version>2.0.2</knife4j.version>
         <poi-tl.version>1.8.2</poi-tl.version>
-        <quick.version>1.0.1</quick.version>
+        <quick.version>1.0.2</quick.version>
         <jjwt.version>0.9.1</jjwt.version>
         <hutool.version>5.5.2</hutool.version>
         <log4j.version>1.2.9</log4j.version>
@@ -55,6 +56,7 @@
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
         <flink.version>1.12.1</flink.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <poi-tl.version>1.8.2</poi-tl.version>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -392,6 +394,18 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--poi-tl-->
+            <dependency>
+                <groupId>com.deepoove</groupId>
+                <artifactId>poi-tl</artifactId>
+                <version>${poi-tl.version}</version>
+            </dependency>
+            <!--quick-code-db-->
+            <dependency>
+                <groupId>cn.ablxyw</groupId>
+                <artifactId>quick-code-db</artifactId>
+                <version>${quick.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

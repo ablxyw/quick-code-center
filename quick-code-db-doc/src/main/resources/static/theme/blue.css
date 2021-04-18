@@ -1,0 +1,23 @@
+.skin-blue .main-header .logo {
+	background-color: #0d8fff;
+}
+
+.skin-blue .main-header .navbar {
+	background-color:#1E9FFF !important;
+	color : #fff !important;
+}
+
+.skin-blue .main-header .logo:hover {
+	background-color:#1890FF;
+}
+
+.skin-blue .main-header .navbar .nav > li > a:hover,
+.skin-blue .main-header .navbar .nav > li > a:active,
+.skin-blue .main-header .navbar .nav > li > a:focus,
+.skin-blue .main-header .navbar .nav .open > a,
+.skin-blue .main-header .navbar .nav .open > a:hover,
+.skin-blue .main-header .navbar .nav .open > a:focus,
+.skin-blue .main-header .navbar .nav > .active > a {
+	background-color: #0d8fff;
+	color : #fff;
+}

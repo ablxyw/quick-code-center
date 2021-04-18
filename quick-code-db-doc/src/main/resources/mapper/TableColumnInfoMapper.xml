@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ablxyw.mapper.TableColumnInfoMapper">
+
+    <!--列映射-->
+    <resultMap type="cn.ablxyw.entity.TableColumnInfoEntity" id="TableColumnInfoEntityMap">
+        <result property="tableName" column="table_name"/>
+        <result property="columnName" column="column_name"/>
+        <result property="ordinalPosition" column="ordinal_position"/>
+        <result property="columnDefault" column="column_default"/>
+        <result property="isNullable" column="is_nullable"/>
+        <result property="columnType" column="column_type"/>
+        <result property="columnKey" column="column_key"/>
+        <result property="columnComment" column="column_comment"/>
+    </resultMap>
+
+    <!--列集合-->
+    <sql id="BASE_COLUMN">
+        `table_name`,
+        `column_name`,
+        `ordinal_position`,
+        `column_default`,
+        `is_nullable`,
+        `column_type`,
+        `column_key`,
+        `column_comment`
+    </sql>
+
+    <!--表名-->
+    <sql id="BASE_TABLE">
+        table_info
+    </sql>
+
+    <!--查询SQL-->
+    <sql id="BASE_QUERY">
+        <where>
+            <if test="tableName != null  and tableName != ''">
+                AND `table_name` = #{tableName}
+            </if>
+            <if test="columnName != null  and columnName != ''">
+                AND `column_name` = #{columnName}
+            </if>
+            <if test="ordinalPosition != null ">
+                AND `ordinal_position` = #{ordinalPosition}
+            </if>
+            <if test="columnDefault != null  and columnDefault != ''">
+                AND `column_default` = #{columnDefault}
+            </if>
+            <if test="isNullable != null  and isNullable != ''">
+                AND `is_nullable` = #{isNullable}
+            </if>
+            <if test="columnType != null  and columnType != ''">
+                AND `column_type` = #{columnType}
+            </if>
+            <if test="columnKey != null  and columnKey != ''">
+                AND `column_key` = #{columnKey}
+            </if>
+            <if test="columnComment != null  and columnComment != ''">
+                AND `column_comment` = #{columnComment}
+            </if>
+            <if test="tableSchema != null  and tableSchema != ''">
+                AND `table_schema` = #{tableSchema}
+            </if>
+            <if test="tableSchema == null  or tableSchema.trim == ''">
+                AND `table_schema` = (SELECT DATABASE())
+            </if>
+        </where>
+    </sql>
+
+    <!--查询-->
+    <select id="list" resultMap="TableColumnInfoEntityMap" flushCache="true">
+        SELECT
+        TABLE_SCHEMA,TABLE_NAME,COLUMN_NAME,ORDINAL_POSITION,IFNULL( COLUMN_DEFAULT, '' ) COLUMN_DEFAULT,
+        IS_NULLABLE,COLUMN_TYPE,COLUMN_KEY,COLUMN_COMMENT
+        FROM
+        INFORMATION_SCHEMA.`COLUMNS`
+        <include refid="BASE_QUERY"/>
+        ORDER BY
+        <if test="sort!=null and sort!=''">
+            ${sort}
+        </if>
+        <if test="sort==null or sort==''">
+            TABLE_NAME DESC
+        </if>
+    </select>
+    <!--查询表信息-->
+    <select id="listTableInfo" resultType="cn.ablxyw.entity.TableInfoEntity">
+        SELECT TABLE_SCHEMA,TABLE_NAME, TABLE_COMMENT,CREATE_TIME
+        FROM INFORMATION_SCHEMA.`TABLES`
+        <where>
+            <if test="tableName != null  and tableName != ''">
+                AND `table_name` = #{tableName}
+            </if>
+            <if test="tableSchema != null  and tableSchema != ''">
+                AND `table_schema` = #{tableSchema}
+            </if>
+            <if test="tableSchema == null  or tableSchema.trim == ''">
+                AND `table_schema` = (SELECT DATABASE())
+            </if>
+        </where>
+        ORDER BY TABLE_NAME, CREATE_TIME
+    </select>
+
+    <!--查询条数-->
+    <select id="countTotal" resultType="integer">
+        SELECT COUNT(1) FROM
+        <include refid="BASE_TABLE"/>
+        <include refid="BASE_QUERY"/>
+    </select>
+
+    <!--根据主键查询-->
+    <select id="findById" resultType="integer">
+        SELECT
+        <include refid="BASE_COLUMN"/>
+        FROM
+        <include refid="BASE_TABLE"/>
+        where `table_name`=#{tableName}
+    </select>
+
+    <!--批量插入-->
+    <insert id="batchInsert" flushCache="true">
+        INSERT INTO
+        <include refid="BASE_TABLE"/>
+        ( `table_name`,
+        `column_name`,
+        `ordinal_position`,
+        `column_default`,
+        `is_nullable`,
+        `column_type`,
+        `column_key`,
+        `column_comment`
+        )
+        VALUES
+        <foreach collection="list" item="item" index="index" separator=",">
+            ( #{item.tableName},
+            #{item.columnName},
+            #{item.ordinalPosition},
+            #{item.columnDefault},
+            #{item.isNullable},
+            #{item.columnType},
+            #{item.columnKey},
+            #{item.columnComment}
+            )
+        </foreach>
+    </insert>
+
+    <!--批量更新-->
+    <update id="batchUpdate" flushCache="true">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE
+            <include refid="BASE_TABLE"/>
+            <set>
+                <if test="item.columnName != null  and item.columnName != ''">
+                    `column_name` = #{item.columnName},
+                </if>
+                <if test="item.ordinalPosition != null ">
+                    `ordinal_position` = #{item.ordinalPosition},
+                </if>
+                <if test="item.columnDefault != null  and item.columnDefault != ''">
+                    `column_default` = #{item.columnDefault},
+                </if>
+                <if test="item.isNullable != null  and item.isNullable != ''">
+                    `is_nullable` = #{item.isNullable},
+                </if>
+                <if test="item.columnType != null  and item.columnType != ''">
+                    `column_type` = #{item.columnType},
+                </if>
+                <if test="item.columnKey != null  and item.columnKey != ''">
+                    `column_key` = #{item.columnKey},
+                </if>
+                <if test="item.columnComment != null  and item.columnComment != ''">
+                    `column_comment` = #{item.columnComment}
+                </if>
+            </set>
+            WHERE table_name = #{item.tableName}
+        </foreach>
+    </update>
+
+    <!--批量删除-->
+    <delete id="batchDelete" flushCache="true">
+        DELETE FROM
+        <include refid="BASE_TABLE"/>
+        WHERE
+        `table_name` IN
+        <foreach collection="list" item="item" index="no" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
+
+</mapper>

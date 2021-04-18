@@ -32,6 +32,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -140,6 +141,8 @@ public class SysDatasourceConfigServiceImpl implements SysDatasourceConfigServic
         AtomicReference<Integer> insertCount = new AtomicReference<>(0);
         sysDatasourceConfigList.stream().forEach(sysDatasourceConfigEntity -> {
             sysDatasourceConfigEntity.setDatasourceId(GlobalUtils.appendString(INTERVAL_DB, GlobalUtils.ordinaryId()));
+            sysDatasourceConfigEntity.setCreateTime(new Date());
+            sysDatasourceConfigEntity.setUpdateTime(new Date());
             sysDatasourceConfigEntity.setPassWord(AesUtil.aesEncrypt(StringUtils.trimToEmpty(sysDatasourceConfigEntity.getPassWord())));
             insertCount.updateAndGet(v -> v + sysDatasourceConfigMapper.insert(sysDatasourceConfigEntity));
         });
@@ -164,6 +167,7 @@ public class SysDatasourceConfigServiceImpl implements SysDatasourceConfigServic
         }
         AtomicReference<Integer> updateCount = new AtomicReference<>(0);
         sysDatasourceConfigList.stream().forEach(sysDatasourceConfigEntity -> {
+            sysDatasourceConfigEntity.setUpdateTime(new Date());
             updateCount.updateAndGet(v -> v + sysDatasourceConfigMapper.updateById(sysDatasourceConfigEntity));
         });
         //修改成功之后动态刷新数据源配置信息
