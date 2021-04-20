@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * 多数据源切换Service
@@ -57,6 +58,14 @@ public class DynamicDataSourceServiceImpl implements DynamicDataSourceService {
      */
     @Override
     public boolean changeDb(String datasourceId) throws Exception {
+        //如果数据源没有被初始化则先初始化
+        boolean initFlag = QueryConfigDict.getSysDatasourceConfigList().isEmpty() || !(QueryConfigDict.getSysDatasourceConfigList().stream()
+                .map(SysDatasourceConfigEntity::getDatasourceId)
+                .distinct().collect(Collectors.toList())
+                .contains(datasourceId));
+        if (initFlag) {
+            QueryConfigDict.setSysDatasourceConfigList(list(null));
+        }
         //默认切换到主数据源,进行整体资源的查找
         DataBaseContextHolder.clearDataSource();
         List<SysDatasourceConfigEntity> dataSourcesList = QueryConfigDict.getSysDatasourceConfigList();
