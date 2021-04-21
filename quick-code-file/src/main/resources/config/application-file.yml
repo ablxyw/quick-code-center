@@ -1,0 +1,9 @@
+# 文件上传配置
+qFrame:
+  file:
+    #文件基础路径
+    filePath: /data/qFrame/uploadFiles
+    # 文件访问url前缀
+    urlPrefix: http://127.0.0.1:9094/quickFile/
+  # 是否需要登录验证
+  login: false

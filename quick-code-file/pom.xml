@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>quick-code</artifactId>
+        <groupId>cn.ablxyw</groupId>
+        <version>1.0.2</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>quick-code-file</artifactId>
+    <description>quick-code-file:文件服务器,提供文件上传、下载功能</description>
+
+    <dependencies>
+        <!--q-frame-core-->
+        <dependency>
+            <groupId>cn.ablxyw</groupId>
+            <artifactId>quick-code-core</artifactId>
+        </dependency>
+        <!--druid-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>package</id>
+            <activation>
+                <jdk>${java.version}</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-jar-plugin</artifactId>
+                        <configuration>
+                            <archive>
+                                <manifest>
+                                    <!--运行jar包时运行的主类，要求类全名-->
+                                    <mainClass>cn.ablxyw.QuickCodeFileApplication</mainClass>
+                                    <!-- 是否指定项目classpath下的依赖 -->
+                                    <addClasspath>true</addClasspath>
+                                    <!-- 指定依赖的时候声明前缀 -->
+                                    <classpathPrefix>lib/</classpathPrefix>
+                                </manifest>
+                                <manifestEntries>
+                                    <Class-Path>./</Class-Path>
+                                </manifestEntries>
+                            </archive>
+                            <excludes>
+                                <exclude>config/*</exclude>
+                                <exclude>db/*</exclude>
+                                <exclude>doc/*</exclude>
+                            </excludes>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-surefire-plugin</artifactId>
+                        <configuration>
+                            <!--打包时跳过测试类-->
+                            <skipTests>true</skipTests>
+                            <useSystemClassLoader>false</useSystemClassLoader>
+                            <systemPropertyVariables>
+                                <sun.net.http.allowRestrictedHeaders>true</sun.net.http.allowRestrictedHeaders>
+                            </systemPropertyVariables>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                        <configuration>
+                            <source>${java.version}</source>
+                            <target>${java.version}</target>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>src/main/assembly/assembly.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-assembly</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+    <build>
+        <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+        <testSourceDirectory>${basedir}/src/test/java</testSourceDirectory>
+    </build>
+
+</project>

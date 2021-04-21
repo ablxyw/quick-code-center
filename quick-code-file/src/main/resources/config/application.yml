@@ -1,0 +1,49 @@
+# quick File 服务配置
+spring:
+  profiles:
+    active: dev
+    include: file
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  application:
+    name: quickFile
+  jackson:
+    date-format:  yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    locale: zh_CN
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+  pid:
+    file: ${server.tomcat.basedir}/${spring.application.name}.pid
+
+# 服务端口号
+server:
+  port: 9094
+  tomcat:
+    # 解决上传文件丢失问题
+    basedir: ${user.home}/spring-boot/${spring.application.name}/tomcat
+  #客户端Http请求、响应的Header的最大限制
+  max-http-header-size: 10MB
+  #压缩数据传输
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types:
+      - image/png
+      - image/jpeg
+      - image/jpg
+      - text/html
+      - application/javascript
+      - text/css
+      - application/octet-stream
+      - application/json
+      - video/mp4
+      - video/vnd.motorola.video
+      - video/mpeg
+  servlet:
+    context-path: /quickFile
+
+
