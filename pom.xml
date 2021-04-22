@@ -20,6 +20,7 @@
         <module>quick-code-job</module>
         <module>quick-code-db</module>
         <module>quick-code-db-doc</module>
+        <module>quick-code-file</module>
         <!--        <module>quick-code-flowable</module>-->
     </modules>
     <properties>

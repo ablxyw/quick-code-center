@@ -78,7 +78,7 @@ public class SysFileServiceImpl implements SysFileService {
                 Files.copy(saveFile.getInputStream(), Paths.get(finalFileSavePath, originalFilename), StandardCopyOption.REPLACE_EXISTING);
                 uploadFileList.add(new HashMap<String, String>(3) {{
                     put("fileName", originalFilename);
-                    put("url", GlobalUtils.appendString(urlPrefix, SLASH_CODE, originalFilename));
+                    put("url", GlobalUtils.appendString(urlPrefix, urlPrefix.endsWith(SLASH_CODE) ? EMPTY_STRING : SLASH_CODE, originalFilename));
                     put("path", finalFileSavePath);
                 }});
             } catch (IOException e) {
