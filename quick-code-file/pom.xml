@@ -60,6 +60,7 @@
                                 <exclude>config/*</exclude>
                                 <exclude>db/*</exclude>
                                 <exclude>doc/*</exclude>
+                                <exclude>h2/*</exclude>
                             </excludes>
                         </configuration>
                     </plugin>

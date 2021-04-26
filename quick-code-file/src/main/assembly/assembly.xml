@@ -24,6 +24,10 @@
             <outputDirectory>./doc</outputDirectory>
         </fileSet>
         <fileSet>
+            <directory>src/main/resources/h2</directory>
+            <outputDirectory>./h2</outputDirectory>
+        </fileSet>
+        <fileSet>
             <directory>${project.build.directory}</directory>
             <outputDirectory>./</outputDirectory>
             <includes>

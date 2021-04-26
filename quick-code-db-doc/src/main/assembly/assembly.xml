@@ -20,6 +20,10 @@
       <outputDirectory>./db</outputDirectory>
     </fileSet>
     <fileSet>
+      <directory>src/main/resources/h2</directory>
+      <outputDirectory>./h2</outputDirectory>
+    </fileSet>
+    <fileSet>
       <directory>src/main/resources/doc</directory>
       <outputDirectory>./doc</outputDirectory>
     </fileSet>
