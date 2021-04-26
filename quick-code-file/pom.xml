@@ -36,6 +36,7 @@
             <id>package</id>
             <activation>
                 <jdk>${java.version}</jdk>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <plugins>
