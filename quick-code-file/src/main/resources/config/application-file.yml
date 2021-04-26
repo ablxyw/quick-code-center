@@ -2,8 +2,9 @@
 qFrame:
   file:
     #文件基础路径
-    filePath: /data/qFrame/uploadFiles
-    # 文件访问url前缀
+    #filePath: /data/qFrame/uploadFiles
+    filePath: ${server.tomcat.basedir}/data/quickFile/uploadFiles
+    # 文件访问url前缀，一般交给nginx去管理,也就是说是nginx的代理url
     urlPrefix: http://127.0.0.1:9094/quickFile/
   # 是否需要登录验证
   login: false

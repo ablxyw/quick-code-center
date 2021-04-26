@@ -47,6 +47,7 @@ public class DocUtil {
      *
      * @param tableInfoEntities 表信息
      * @param tableSchema       表空间
+     * @return File
      * @throws Exception
      */
     public static File poiTl(List<TableInfoEntity> tableInfoEntities, String tableSchema) throws Exception {
@@ -79,7 +80,7 @@ public class DocUtil {
                 String key = GlobalUtils.appendString(StringUtils.isNotBlank(tableComment) ? tableComment : "", "(" + tableInfoEntity.getTableName().toUpperCase() + ")");
                 List<TableColumnInfoEntity> columnInfoEntities = tableInfoEntity.getTableColumnInfoEntities();
                 List<RowRenderData> bodyList = Lists.newLinkedList();
-                columnInfoEntities.stream().forEach(columnInfoEntity -> {
+                columnInfoEntities.forEach(columnInfoEntity -> {
                     RowRenderData rowRenderData = RowRenderData.build(
                             new TextRenderData(columnInfoEntity.getColumnName().toUpperCase(), bodyTextStyle),
                             new TextRenderData(columnInfoEntity.getColumnComment(), bodyTextStyle),
