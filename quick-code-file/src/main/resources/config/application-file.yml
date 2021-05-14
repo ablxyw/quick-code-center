@@ -1,6 +1,11 @@
 # 文件上传配置
 qFrame:
+  # 存储类型:local、minio、s3、oss、七牛、hdfs
+  mode: local
+  # 存储方式:单一、混合，single、blend，混合模式下根据存储类型的enable去确定
+  type: single
   file:
+    enable: true
     #文件基础路径
     #filePath: /data/qFrame/uploadFiles
     filePath: ${server.tomcat.basedir}/data/quickFile/uploadFiles
@@ -8,3 +13,33 @@ qFrame:
     urlPrefix: http://127.0.0.1:9094/quickFile/
   # 是否需要登录验证
   login: false
+  minio:
+    enable: false
+    url: xxx
+    accessKey: xx
+    secretKey: xxx
+    defaultBucket: xxxx
+  s3:
+    enable: false
+    url: xxx
+    accessKey: xx
+    secretKey: xxx
+    defaultBucket: xxxx
+  oss:
+    enable: false
+    url: xxx
+    accessKey: xx
+    secretKey: xxx
+    defaultBucket: xxxx
+  qiniu:
+    enable: false
+    url: xxx
+    accessKey: xx
+    secretKey: xxx
+    defaultBucket: xxxx
+  hdfs:
+    enable: false
+    url: xxx
+    accessKey: xx
+    secretKey: xxx
+    defaultBucket: xxxx
