@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS `sys_interface_request`
     `query_sql`       varchar(3000) DEFAULT '' COMMENT '查询SQL',
     `request_time`    int(11) DEFAULT '0' COMMENT '请求耗时',
     `client_ip`       varchar(255)  DEFAULT '' COMMENT '客户端ip',
+    `server_ip`       varchar(255)  DEFAULT '' COMMENT '服务器ip',
     `browser_name`    varchar(255)  DEFAULT '' COMMENT '浏览器',
     `browser_version` varchar(255)  DEFAULT '' COMMENT '浏览器版本',
     `os_name`         varchar(255)  DEFAULT '' COMMENT '操作系统',
