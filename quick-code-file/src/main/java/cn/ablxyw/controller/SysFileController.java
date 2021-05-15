@@ -1,11 +1,13 @@
 package cn.ablxyw.controller;
 
+import cn.ablxyw.service.MinioFileService;
 import cn.ablxyw.service.SysFileService;
 import cn.ablxyw.vo.ResultEntity;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,12 +26,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/sysFile")
 public class SysFileController {
-
     /**
-     * 附件信息Service
+     * local模式附件信息Service
      */
     @Autowired
     private SysFileService sysFileService;
+
+    /**
+     * minio模式附件信息Service
+     */
+    @Autowired
+    private MinioFileService minioFileService;
 
     /**
      * 批量上传文件
@@ -54,7 +61,8 @@ public class SysFileController {
     @ApiOperation("单个上传文件")
     @PostMapping(value = "fileUpload")
     public ResultEntity fileUpload(@RequestParam(name = "file") MultipartFile file, HttpServletRequest request) {
-        return sysFileService.fileUpload(Lists.newArrayList(file), request);
+        //return sysFileService.fileUpload(Lists.newArrayList(file), request);
+        return minioFileService.fileUpload(file, request);
     }
 
     /**

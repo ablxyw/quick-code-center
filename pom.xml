@@ -57,8 +57,6 @@
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
         <flink.version>1.12.1</flink.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
-        <poi-tl.version>1.8.2</poi-tl.version>
-        <minio.version>7.0.2</minio.version>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -397,23 +395,11 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
             </dependency>
-            <!--poi-tl-->
-            <dependency>
-                <groupId>com.deepoove</groupId>
-                <artifactId>poi-tl</artifactId>
-                <version>${poi-tl.version}</version>
-            </dependency>
             <!--quick-code-db-->
             <dependency>
                 <groupId>cn.ablxyw</groupId>
                 <artifactId>quick-code-db</artifactId>
                 <version>${quick.version}</version>
-            </dependency>
-            <!--文件服务器minio-->
-            <dependency>
-                <groupId>io.minio</groupId>
-                <artifactId>minio</artifactId>
-                <version>${minio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
