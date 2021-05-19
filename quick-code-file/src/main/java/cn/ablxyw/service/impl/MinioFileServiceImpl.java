@@ -15,16 +15,19 @@ import java.util.Map;
 
 
 /**
- * @author 15091
+ * @Author: AiYongFeng
+ * @Date: 2021/5/15 10:04
  */
 @Service
 public class MinioFileServiceImpl implements MinioFileService {
 
     @Override
-    public ResultEntity fileUpload(MultipartFile file, HttpServletRequest request) {
+    public ResultEntity fileUpload(List<MultipartFile> fileList, HttpServletRequest request) {
         List<Map<String, Object>> uploadFileList = Lists.newArrayList();
-        Map<String, Object> upload = MinioUtil.upload(file, "image/");
-        uploadFileList.add(upload);
+        for (MultipartFile file:fileList) {
+            Map<String, Object> upload = MinioUtil.upload(file, "image/");
+            uploadFileList.add(upload);
+        }
         return ResultUtil.success(GlobalEnum.ImportSuccess,uploadFileList);
     }
 }
