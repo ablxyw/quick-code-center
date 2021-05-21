@@ -1,8 +1,6 @@
 package cn.ablxyw.controller;
 
 import cn.ablxyw.factory.FileFactory;
-import cn.ablxyw.service.MinioFileService;
-import cn.ablxyw.service.SysFileService;
 import cn.ablxyw.vo.ResultEntity;
 import com.google.common.collect.Lists;
 import io.swagger.annotations.Api;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -26,17 +25,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/sysFile")
 public class SysFileController {
-    /**
-     * local模式附件信息Service
-     */
-    @Autowired
-    private SysFileService sysFileService;
-
-    /**
-     * minio模式附件信息Service
-     */
-    @Autowired
-    private MinioFileService minioFileService;
 
     @Autowired
     private FileFactory fileFactory;
@@ -75,7 +63,7 @@ public class SysFileController {
      */
     @ApiOperation("下载文件")
     @RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
-    public ResponseEntity downloadFile(@RequestParam(name = "oriUrl") String oriUrl) {
-        return sysFileService.downloadFile(oriUrl);
+    public ResponseEntity downloadFile(@RequestParam(name = "oriUrl") String oriUrl, HttpServletResponse response) {
+        return fileFactory.downloadFile(oriUrl,response);
     }
 }

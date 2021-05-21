@@ -1,8 +1,10 @@
 package cn.ablxyw.service;
 
 import cn.ablxyw.vo.ResultEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
@@ -19,4 +21,12 @@ public interface MinioFileService {
      * @return ResultEntity
      */
     ResultEntity fileUpload(List<MultipartFile> fileList, HttpServletRequest request);
+
+    /**
+     * 文件下载
+     * @param url  路径
+     * @param response 响应对象
+     * @return
+     */
+    ResponseEntity downloadFile(String url, HttpServletResponse response);
 }

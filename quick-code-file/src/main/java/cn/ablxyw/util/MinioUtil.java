@@ -1,6 +1,7 @@
 package cn.ablxyw.util;
 
 import cn.ablxyw.enums.GlobalEnum;
+
 import io.minio.MinioClient;
 import io.minio.PutObjectOptions;
 import org.springframework.beans.factory.annotation.Value;
@@ -8,12 +9,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
 
 /**
  * @Author:aiyongfeng
@@ -40,6 +42,7 @@ public class MinioUtil {
     private String secretKey;
 
     /**
+     *
      * @param file
      * @param path
      * @return
@@ -102,4 +105,50 @@ public class MinioUtil {
         minioSecretKey = this.secretKey;
     }
 
+
+    /**
+     * 下载
+     * @return
+     */
+    public static void downloadMinio(String fileUrl, HttpServletResponse response){
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            createMinio();
+            // 拿到文件路径
+            String url = fileUrl.split(minioBucketName + "/")[1];
+            // 获取文件对象
+            String substring = url.substring(url.indexOf("/") + 1);
+
+            in = minioClient.getObject(minioBucketName, url);
+            byte buf[] = new byte[1024];
+            int length = 0;
+            response.reset();
+            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(substring, "UTF-8"));
+            response.setContentType("application/octet-stream");
+            response.setCharacterEncoding("UTF-8");
+            out = response.getOutputStream();
+            // 输出文件
+            while ((length = in.read(buf)) > 0) {
+                out.write(buf, 0, length);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }finally {
+            if (in != null){
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 }
