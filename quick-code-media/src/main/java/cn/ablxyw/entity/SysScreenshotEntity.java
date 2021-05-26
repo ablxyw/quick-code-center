@@ -12,6 +12,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import static cn.ablxyw.constants.GlobalConstants.DATE_TIME_FORMAT;
 
@@ -98,6 +99,12 @@ public class SysScreenshotEntity extends QuickBaseUserInfo implements Serializab
     @TableField(exist = false)
     @ApiModelProperty(value = "保存文件地址")
     private String fileUrl;
+    /**
+     * 保存文件地址,考虑截屏之后保存至文件服务
+     */
+    @TableField(exist = false)
+    @ApiModelProperty(value = "保存文件地址")
+    private List<SysScreenshotLogEntity> sysScreenshotLogEntities;
     /**
      * 创建时间
      */

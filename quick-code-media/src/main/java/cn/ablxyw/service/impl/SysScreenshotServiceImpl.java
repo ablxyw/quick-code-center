@@ -1,8 +1,10 @@
 package cn.ablxyw.service.impl;
 
 import cn.ablxyw.entity.SysScreenshotEntity;
+import cn.ablxyw.entity.SysScreenshotLogEntity;
 import cn.ablxyw.enums.GlobalEnum;
 import cn.ablxyw.mapper.SysScreenshotMapper;
+import cn.ablxyw.service.SysScreenshotLogService;
 import cn.ablxyw.service.SysScreenshotService;
 import cn.ablxyw.utils.GlobalUtils;
 import cn.ablxyw.utils.ResultUtil;
@@ -10,6 +12,7 @@ import cn.ablxyw.vo.ResultEntity;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +39,12 @@ public class SysScreenshotServiceImpl implements SysScreenshotService {
      */
     @Resource
     private SysScreenshotMapper sysScreenshotMapper;
+
+    /**
+     * html转图配置Mapper
+     */
+    @Resource
+    private SysScreenshotLogService sysScreenshotLogService;
 
     /**
      * 删除所有
@@ -118,6 +127,7 @@ public class SysScreenshotServiceImpl implements SysScreenshotService {
     @Override
     public ResultEntity list(SysScreenshotEntity record) {
         List<SysScreenshotEntity> screenshotEntityList = sysScreenshotMapper.selectList(convertWrapper(record));
+        screenshotEntityList = convertResult(screenshotEntityList);
         return ResultUtil.success(GlobalEnum.QuerySuccess, screenshotEntityList);
     }
 
@@ -141,6 +151,23 @@ public class SysScreenshotServiceImpl implements SysScreenshotService {
             updateCount.updateAndGet(v -> v + sysScreenshotMapper.updateById(sysScreenshotEntity));
         });
         return ResultUtil.msg(updateCount.get());
+    }
+
+    /**
+     * 转换返回结果
+     *
+     * @param screenshotEntityList html转图配置
+     * @return List
+     */
+    private List<SysScreenshotEntity> convertResult(List<SysScreenshotEntity> screenshotEntityList) {
+        if (Objects.equals(screenshotEntityList.size(), 1)) {
+            SysScreenshotEntity sysScreenshotEntity = screenshotEntityList.get(0);
+            String shotId = sysScreenshotEntity.getShotId();
+            List<SysScreenshotLogEntity> screenshotLogEntities = sysScreenshotLogService.listByShotId(shotId);
+            sysScreenshotEntity.setSysScreenshotLogEntities(screenshotLogEntities);
+            return Lists.newArrayList(sysScreenshotEntity);
+        }
+        return screenshotEntityList;
     }
 
     /**
