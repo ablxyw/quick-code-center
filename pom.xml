@@ -21,6 +21,7 @@
         <module>quick-code-db</module>
         <module>quick-code-db-doc</module>
         <module>quick-code-file</module>
+        <module>quick-code-media</module>
         <!--        <module>quick-code-flowable</module>-->
     </modules>
     <properties>
@@ -57,6 +58,7 @@
         <javadoc.opts>-Xdoclint:none</javadoc.opts>
         <flink.version>1.12.1</flink.version>
         <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <selenium.version>3.9.1</selenium.version>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -400,6 +402,12 @@
                 <groupId>cn.ablxyw</groupId>
                 <artifactId>quick-code-db</artifactId>
                 <version>${quick.version}</version>
+            </dependency>
+            <!--selenium-java-->
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
