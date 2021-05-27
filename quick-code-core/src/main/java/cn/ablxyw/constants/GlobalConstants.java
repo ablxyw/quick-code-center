@@ -82,6 +82,18 @@ public class GlobalConstants {
      */
     public static final String POINT = ".";
     /**
+     * png
+     */
+    public static final String PNG_CODE = "png";
+    /**
+     * jpeg
+     */
+    public static final String JPEG_CODE = "jpeg";
+    /**
+     * jpg
+     */
+    public static final String JPG_CODE = "jpg";
+    /**
      * linux
      */
     public static final String LINUX_NAME = "linux";

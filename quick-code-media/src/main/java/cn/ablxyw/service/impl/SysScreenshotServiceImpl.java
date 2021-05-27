@@ -6,6 +6,10 @@ import cn.ablxyw.enums.GlobalEnum;
 import cn.ablxyw.mapper.SysScreenshotMapper;
 import cn.ablxyw.service.SysScreenshotLogService;
 import cn.ablxyw.service.SysScreenshotService;
+import cn.ablxyw.service.impl.factory.SysDriverChrome;
+import cn.ablxyw.service.impl.factory.SysDriverEdge;
+import cn.ablxyw.service.impl.factory.SysDriverFirefox;
+import cn.ablxyw.service.impl.factory.SysDriverSafari;
 import cn.ablxyw.utils.GlobalUtils;
 import cn.ablxyw.utils.ResultUtil;
 import cn.ablxyw.vo.ResultEntity;
@@ -14,6 +18,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -45,6 +50,27 @@ public class SysScreenshotServiceImpl implements SysScreenshotService {
      */
     @Resource
     private SysScreenshotLogService sysScreenshotLogService;
+
+    /**
+     * SysDriverChrome
+     */
+    @Autowired
+    private SysDriverChrome sysDriverChrome;
+    /**
+     * SysDriverEdge
+     */
+    @Autowired
+    private SysDriverEdge sysDriverEdge;
+    /**
+     * SysDriverFirefox
+     */
+    @Autowired
+    private SysDriverFirefox sysDriverFirefox;
+    /**
+     * SysDriverSafari
+     */
+    @Autowired
+    private SysDriverSafari sysDriverSafari;
 
     /**
      * 删除所有
@@ -182,5 +208,33 @@ public class SysScreenshotServiceImpl implements SysScreenshotService {
         }
         QueryWrapper<SysScreenshotEntity> queryWrapper = new QueryWrapper<>(sysScreenshotEntity);
         return queryWrapper;
+    }
+
+    /**
+     * html转图片
+     *
+     * @param sysScreenshotEntity html转图配置
+     * @return ResultEntity
+     */
+    @Override
+    public ResultEntity execute(SysScreenshotEntity sysScreenshotEntity) {
+        ResultEntity resultEntity;
+        String driverType = sysScreenshotEntity.getDriverType();
+        driverType = StringUtils.isBlank(driverType) ? "chrome" : driverType;
+        switch (driverType) {
+            case "firefox":
+                resultEntity = sysDriverFirefox.execute(sysScreenshotEntity);
+                break;
+            case "edge":
+                resultEntity = sysDriverEdge.execute(sysScreenshotEntity);
+                break;
+            case "safari":
+                resultEntity = sysDriverSafari.execute(sysScreenshotEntity);
+                break;
+            default:
+                resultEntity = sysDriverChrome.execute(sysScreenshotEntity);
+                break;
+        }
+        return resultEntity;
     }
 }

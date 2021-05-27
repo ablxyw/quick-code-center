@@ -33,11 +33,13 @@ public class Html2ImageTests {
         System.setProperty("webdriver.chrome.driver", "/Users/${userName}/Downloads/chromedriver");
         //(3)设置chrome选项（取消浏览器弹窗）
         ChromeOptions options = new ChromeOptions();
+        options.addArguments("headless");
         //(3)建立selenium 驱动
-        WebDriver webDriver = new ChromeDriver();
+        WebDriver webDriver = new ChromeDriver(options);
         //设置浏览器宽高
-        org.openqa.selenium.Dimension dimension = new org.openqa.selenium.Dimension(7680, 2160);
-//        webDriver.manage().window().setSize(dimension);
+        org.openqa.selenium.Dimension dimension = new org.openqa.selenium.Dimension(1920, 1680);
+        webDriver.manage().window().setSize(dimension);
+        webDriver.manage().window().maximize();
         webDriver.manage().window().fullscreen();
         webDriver.manage().deleteAllCookies();
         // 与浏览器同步非常重要，必须等待浏览器加载完毕
@@ -49,7 +51,7 @@ public class Html2ImageTests {
         String title = webDriver.getTitle();
         File srcfile = ((TakesScreenshot) webDriver).getScreenshotAs(OutputType.FILE);
         try {
-            FileUtils.copyFile(srcfile, new File(BASE_PATH + "test_" + title + ".png"));
+            FileUtils.copyFile(srcfile, new File(BASE_PATH + title + ".png"));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
