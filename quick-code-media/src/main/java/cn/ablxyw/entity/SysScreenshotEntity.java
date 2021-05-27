@@ -31,6 +31,21 @@ import static cn.ablxyw.constants.GlobalConstants.DATE_TIME_FORMAT;
 @TableName("sys_screenshot")
 public class SysScreenshotEntity extends QuickBaseUserInfo implements Serializable {
     /**
+     * 宽度
+     */
+    @ApiModelProperty(value = "宽度")
+    public Integer width;
+    /**
+     * 高度
+     */
+    @ApiModelProperty(value = "高度")
+    public Integer height;
+    /**
+     * 是否全屏
+     */
+    @ApiModelProperty(value = "是否全屏")
+    public Boolean fullscreen;
+    /**
      * 主键
      */
     @TableId(type = IdType.ASSIGN_UUID)
@@ -67,21 +82,6 @@ public class SysScreenshotEntity extends QuickBaseUserInfo implements Serializab
      */
     @ApiModelProperty(value = "驱动类型")
     private String driverType;
-    /**
-     * 宽度
-     */
-    @ApiModelProperty(value = "宽度")
-    public Integer width;
-    /**
-     * 高度
-     */
-    @ApiModelProperty(value = "高度")
-    public Integer height;
-    /**
-     * 是否全屏
-     */
-    @ApiModelProperty(value = "是否全屏")
-    public Boolean fullscreen;
     /**
      * 打开链接等待时长
      */
