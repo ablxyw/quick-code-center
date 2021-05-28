@@ -1,5 +1,6 @@
 package cn.ablxyw.service;
 
+import cn.ablxyw.QuickMediaApplication;
 import cn.ablxyw.entity.SysScreenshotEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -13,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
  * @date 2021-05-27 3:41 下午
  */
 @Slf4j
-@SpringBootTest
+@SpringBootTest(classes = QuickMediaApplication.class)
 public class SysScreenshotServiceTests {
 
     /**
