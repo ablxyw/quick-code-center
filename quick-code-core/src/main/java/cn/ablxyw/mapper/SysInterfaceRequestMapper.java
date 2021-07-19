@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @date 2020-02-16 18:11:59
  */
 @Mapper
-public interface SysInterfaceRequestMapper extends BaseMapper<SysInterfaceRequestEntity, String> {
+public interface SysInterfaceRequestMapper extends QuickBaseMapper<SysInterfaceRequestEntity, String> {
 
 }

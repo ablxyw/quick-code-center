@@ -12,7 +12,7 @@ import java.util.List;
  * @email weiqiang@ablxyw.cn
  * @date 2020-03-14 10:59:59
  */
-public interface TableColumnInfoMapper extends BaseMapper<TableColumnInfoEntity, String> {
+public interface TableColumnInfoMapper extends QuickBaseMapper<TableColumnInfoEntity, String> {
 
     /**
      * 查询表信息

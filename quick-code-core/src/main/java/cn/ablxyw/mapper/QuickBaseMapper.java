@@ -9,7 +9,7 @@ import java.util.List;
  * @author weiQiang
  * @date 2020-03-09
  */
-public interface BaseMapper<T extends Serializable, E> {
+public interface QuickBaseMapper<T extends Serializable, E> {
 
     /**
      * 批量删除

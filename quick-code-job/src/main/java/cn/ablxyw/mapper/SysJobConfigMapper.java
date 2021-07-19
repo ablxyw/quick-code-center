@@ -14,7 +14,7 @@ import java.util.Map;
  * @date 2021-01-30 17:51:50
  */
 @Mapper
-public interface SysJobConfigMapper extends BaseMapper<SysJobConfigEntity, String> {
+public interface SysJobConfigMapper extends QuickBaseMapper<SysJobConfigEntity, String> {
 
     /**
      * 查询触发器详情

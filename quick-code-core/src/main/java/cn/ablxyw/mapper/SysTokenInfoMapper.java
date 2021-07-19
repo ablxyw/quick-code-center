@@ -8,6 +8,6 @@ import cn.ablxyw.entity.SysTokenInfo;
  * @author 魏强
  * @since 2018-10-12 16:35:57
  */
-public interface SysTokenInfoMapper extends BaseMapper<SysTokenInfo, String> {
+public interface SysTokenInfoMapper extends QuickBaseMapper<SysTokenInfo, String> {
 
 }
