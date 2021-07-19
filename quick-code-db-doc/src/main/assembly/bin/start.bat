@@ -1,6 +1,6 @@
 echo off
 
-set APP_NAME=quick-code-db-doc-1.0.2.jar
+set APP_NAME=quick-code-db-doc-1.0.3.jar
 set DEBUG_OPTS=
 if ""%1"" == ""debug"" (
    set DEBUG_OPTS= -Xloggc:./logs/gc.log -verbose:gc -XX:+PrintGCDetails -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=./logs

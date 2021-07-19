@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # 这里可以根据项目替换为程序artifactId-version.jar,其他代码无需更改
 #-Dsun.net.httpserver.nodelay=true
-APP_NAME=quick-code-job-1.0.2.jar
+APP_NAME=quick-code-job-1.0.3.jar
 
 # 使用说明，用来提示输入参数
 usage(){
