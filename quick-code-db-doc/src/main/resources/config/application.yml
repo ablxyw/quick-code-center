@@ -1,0 +1,65 @@
+# QFrame服务配置
+spring:
+  profiles:
+    active: dev
+    include: qFrame
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  application:
+    name: quickDoc
+  jackson:
+    date-format:  yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    locale: zh_CN
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+  pid:
+    file: ${server.tomcat.basedir}/${spring.application.name}.pid
+  #freemarker
+  freemarker:
+    #req访问request
+    request-context-attribute: req
+    #后缀名
+    suffix:
+    content-type: text/html
+    enabled: true
+    #缓存配置
+    cache: false
+    #模板加载路径 按需配置
+    template-loader-path: classpath:/templates/
+    #编码格式
+    charset: UTF-8
+    # setRequestContextAttribute
+    settings:
+      #数字格式化，无小数点
+      number_format: '0.##'
+  main:
+    allow-bean-definition-overriding: true
+# 服务端口号
+server:
+  port: 9092
+  tomcat:
+    # 解决上传文件丢失问题
+    basedir: ${user.home}/spring-boot/${spring.application.name}/tomcat
+  #客户端Http请求、响应的Header的最大限制
+  max-http-header-size: 10MB
+  #压缩数据传输
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types:
+      - image/png
+      - image/jpeg
+      - image/jpg
+      - text/html
+      - application/javascript
+      - text/css
+      - application/octet-stream
+      - application/json
+  servlet:
+    context-path: /quickDoc
+
+

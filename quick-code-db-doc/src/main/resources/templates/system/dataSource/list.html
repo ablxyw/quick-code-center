@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>数据源配置</title>
+    <#include "../../include/header.html">
+</head>
+<body>
+<div class="container-fluid" id="dpCode" v-cloak>
+    <div class="row">
+        <div class="col-md-4 form-inline pull-left">
+            <div class="form-group">
+                <select @change="clearSearchValue" class="form-control" id="sourceId" v-model="queryParamKey">
+                    <option v-bind:value="queryParam.nameEn" v-for="queryParam in queryParams">
+                        {{queryParam.nameZh}}
+                    </option>
+                </select>
+                <input @keyup.enter="load" class="form-control" placeholder="请输入查询关键字" style="width: 220px;" type="text"
+                       v-model="keyword"/>
+            </div>
+            <div class="form-group">
+                <a @click="load" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;查询</a>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="btn-toolbar pull-right">
+                <div class="btn-group">
+                    <a class="btn btn-default" onclick="reload();" v-if="hasPermission('sysDataSourceConfig:list')"><i
+                            class="fa fa-refresh"></i>&nbsp;刷新</a>
+                    <a class="btn btn-default" @click="testConnect"
+                       v-if="hasPermission('sysDataSourceConfig:testConnect')"><i
+                            class="fa fa-heartbeat"></i>测试连接</a>
+                    <a class="btn btn-default" @click="updatePassword"
+                       v-if="hasPermission('sysDataSourceConfig:updatePassword')"><i
+                            class="fa fa-key"></i>修改密码</a>
+                    <a @click="save" class="btn btn-default" v-if="hasPermission('sysDataSourceConfig:save')"><i
+                            class="fa fa-plus"></i>&nbsp;新增</a>
+                    <a @click="edit" class="btn btn-default" v-if="hasPermission('sysDataSourceConfig:edit')"><i
+                            class="fa fa-pencil-square-o"></i>&nbsp;编辑</a>
+                    <a @click="remove" class="btn btn-default" v-if="hasPermission('sysDataSourceConfig:remove')"><i
+                            class="fa fa-trash-o"></i>&nbsp;删除</a>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-info">导出</button>
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                            <span class="caret"></span>
+                            <span class="sr-only">导出</span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a @click="doc" v-if="hasPermission('sysDataSourceConfig:edit')"><i
+                                        class="fa fa-file-word-o"></i>&nbsp;word</a>
+                            </li>
+                            <li>
+                                <a @click="excel" v-if="hasPermission('sysDataSourceConfig:edit')"><i
+                                        class="fa fa-file-excel-o"></i>&nbsp;excel</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table id="dataGrid"></table>
+    </div>
+</div>
+<#include "../../include/footer.html">
+<script src="${springMacroRequestContext.contextPath}/js/system/dataSource/list.js?_${.now?time}"></script>
+</body>
+</html>

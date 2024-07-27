@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.ablxyw.mapper.SysScriptWorkbenchMapper">
+
+    <!--脚本工作台列映射-->
+    <resultMap type="cn.ablxyw.entity.SysScriptWorkbenchEntity" id="SysScriptWorkbenchEntityMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="content" column="content"/>
+        <result property="scriptMode" column="script_mode"/>
+        <result property="curVersion" column="cur_version"/>
+        <result property="oriId" column="ori_id"/>
+        <result property="status" column="status"/>
+        <result property="publicScript" column="public_script"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createId" column="create_id"/>
+        <result property="updateId" column="update_id"/>
+    </resultMap>
+
+    <!--脚本工作台列集合-->
+    <sql id="BASE_COLUMN">
+        `id`, `name`, `content`,`script_mode`, `cur_version`, `ori_id`, `status`,`public_script`, `remark`, `create_time`, `update_time`, `create_id`,`update_id`
+    </sql>
+
+    <!--脚本工作台表名-->
+    <sql id="BASE_TABLE">
+        sys_script_workbench
+    </sql>
+
+    <!--批量删除脚本工作台-->
+    <delete id="batchDelete" flushCache="true">
+        <foreach collection="list" item="item" index="index" open="" close="" separator=";">
+            UPDATE
+            <include refid="BASE_TABLE"/>
+            set `status` = 0
+            WHERE id = #{item}
+        </foreach>
+    </delete>
+
+</mapper>

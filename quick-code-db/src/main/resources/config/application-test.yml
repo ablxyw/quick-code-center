@@ -1,0 +1,43 @@
+# 数据库配置
+spring:
+  datasource:
+    sql-script-encoding: UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.114.180.124:3307/q_frame_api?useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true&serverTimezone=GMT%2B8
+    username: q_frame
+    password: qFrame@123
+    tomcat:
+      test-while-idle: true
+      initial-size: 10
+      max-active: 30
+      min-idle: 10
+      max-wait: -1
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      stat-view-servlet:
+        allow:
+        enabled: true
+        login-username: xxcx
+        login-password: xxcx
+        url-pattern: /druid/*
+      web-stat-filter:
+        enabled: true
+        url-pattern: /*
+      validation-query: select 1
+# mybatis配置
+mybatis:
+  type-aliases-package: cn.ablxyw.entity
+  mapper-locations: classpath*:mapper/*.xml
+  configuration:
+    #是否可以使用列名(取决于驱动的兼容性)
+    useColumnLabel: true
+    #打开驼峰命名
+    mapUnderscoreToCamelCase: true
+    #指定如果setter方法​​或地图的put方法时，将调用检索到的值是null。它是有用的，当你依靠Map.keySet（）或null初始化。注意原语（如整型，布尔等）不会被设置为null
+    callSettersOnNulls: true
+    #设置JDBC类型为空时，某些驱动程序要指定值 default:OTHER
+    jdbcTypeForNull: NULL
+    # 在全局范围内启用或禁用延迟加载。禁用时，所有相关联的将热加载
+    lazyLoadTriggerMethods: equals,clone,hashCode,toString
+
+

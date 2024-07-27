@@ -7,7 +7,7 @@
     <groupId>cn.ablxyw</groupId>
     <artifactId>quick-code</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
     <description>Q框架旨在为敏捷开发、动态接口、动态SQL、可配置化、动态消息服务</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,6 +18,11 @@
     <modules>
         <module>quick-code-core</module>
         <module>quick-code-job</module>
+        <module>quick-code-db</module>
+        <module>quick-code-db-doc</module>
+        <module>quick-code-file</module>
+        <module>quick-code-media</module>
+        <!--        <module>quick-code-flowable</module>-->
     </modules>
     <properties>
         <!--该版本与依赖spring-boot-starter-parent的版本应一致-->
@@ -26,17 +31,17 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
-        <fastjson.version>1.2.75</fastjson.version>
+        <fastjson.version>1.2.76</fastjson.version>
         <commons.version>2.6</commons.version>
         <codec.version>1.14</codec.version>
         <druid.version>1.1.21</druid.version>
         <oracle.version>12.1.0.2</oracle.version>
-        <pagehelper.version>1.2.13</pagehelper.version>
+        <pagehelper.version>1.3.1</pagehelper.version>
         <bitwalker.version>1.21</bitwalker.version>
         <ehcache.version>2.10.6</ehcache.version>
         <knife4j.version>2.0.2</knife4j.version>
         <poi-tl.version>1.8.2</poi-tl.version>
-        <quick.version>1.0.0</quick.version>
+        <quick.version>1.0.4</quick.version>
         <jjwt.version>0.9.1</jjwt.version>
         <hutool.version>5.5.2</hutool.version>
         <log4j.version>1.2.9</log4j.version>
@@ -48,6 +53,12 @@
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <logstash.version>5.3</logstash.version>
         <sigar.version>1.6.4</sigar.version>
+        <flowable.version>6.6.0</flowable.version>
+        <activiti.version>5.23.0</activiti.version>
+        <javadoc.opts>-Xdoclint:none</javadoc.opts>
+        <flink.version>1.12.1</flink.version>
+        <mybatis-plus.version>3.3.2</mybatis-plus.version>
+        <selenium.version>3.9.1</selenium.version>
     </properties>
     <dependencies>
         <!--starter-web-->
@@ -280,13 +291,190 @@
                 <artifactId>sigar</artifactId>
                 <version>${sigar.version}</version>
             </dependency>
+            <!--flowable-->
+            <dependency>
+                <groupId>org.flowable</groupId>
+                <artifactId>flowable-spring-boot-starter</artifactId>
+                <version>${flowable.version}</version>
+            </dependency>
+            <!--activiti-spring-boot-starter-->
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-basic</artifactId>
+                <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-actuator</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-web</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.security</groupId>
+                        <artifactId>spring-security-config</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring-boot-starter-actuator</artifactId>
+                <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.boot</groupId>
+                        <artifactId>spring-boot-starter-web</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-rest</artifactId>
+                <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.security</groupId>
+                        <artifactId>spring-security-config</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-explorer</artifactId>
+                <version>${activiti.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>com.vaadin</groupId>
+                        <artifactId>vaadin</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.vaadin.addons</groupId>
+                        <artifactId>dcharts-widget</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>activiti-simple-workflow</groupId>
+                        <artifactId>org.activiti</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-diagram-rest</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-simple-workflow</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-spring</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <!--activiti-json-converter-->
+            <dependency>
+                <groupId>org.activiti</groupId>
+                <artifactId>activiti-json-converter</artifactId>
+                <version>${activiti.version}</version>
+            </dependency>
+            <!--flink-java-->
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-java</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <!--flink-streaming-java_2.12-->
+            <dependency>
+                <groupId>org.apache.flink</groupId>
+                <artifactId>flink-streaming-java_2.12</artifactId>
+                <version>${flink.version}</version>
+            </dependency>
+            <!--mybatis-plus-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+            <!--quick-code-db-->
+            <dependency>
+                <groupId>cn.ablxyw</groupId>
+                <artifactId>quick-code-db</artifactId>
+                <version>${quick.version}</version>
+            </dependency>
+            <!--selenium-java-->
+            <dependency>
+                <groupId>org.seleniumhq.selenium</groupId>
+                <artifactId>selenium-java</artifactId>
+                <version>${selenium.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>github</id>
-            <name>quick-code-center</name>
-            <url>https://maven.pkg.github.com/WEIQ311/quick-code-center</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <activation>
+                <jdk>${java.version}</jdk>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <!--忽略javadoc报错信息-->
+                            <additionalJOptions>
+                                <additionalJOption>${javadoc.opts}</additionalJOption>
+                            </additionalJOptions>
+                        </configuration>
+                    </plugin>
+                    <!-- 生成asc校验文件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>

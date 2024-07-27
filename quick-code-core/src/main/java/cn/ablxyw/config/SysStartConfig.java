@@ -33,13 +33,13 @@ public class SysStartConfig implements CommandLineRunner {
     /**
      * serverPort
      */
-    @Value("${server.port}")
+    @Value("${server.port:8080}")
     private String serverPort;
 
     /**
      * context-path
      */
-    @Value("${server.servlet.context-path}")
+    @Value("${server.servlet.context-path:''}")
     private String contextPath;
 
     /**

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <#include "../../include/header.html">
+</head>
+<body>
+<div class="container-fluid" id="dpCode" v-cloak>
+    <table class="form" id="form">
+        <tr>
+            <td class="formTitle">数据库类型<font face="宋体">*</font></td>
+            <td class="formValue">
+                <select checkexpession="NotNull" class="form-control" isvalid="yes" id="databaseTypeId"
+                        v-model="sysDatasourceConfig.databaseType">
+                    <option v-bind:value="dataSourceType.code" v-for="dataSourceType in dataSourceTypes">
+                        {{dataSourceType.code}}
+                    </option>
+                </select>
+            </td>
+            <td class="formTitle">数据源名称<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input checkexpession="NotNull" class="form-control" isvalid="yes"
+                       placeholder="数据源名称" type="text" v-model="sysDatasourceConfig.datasourceName">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">连接url信息<font face="宋体">*</font></td>
+            <td class="formValue" colspan="3">
+                <textarea checkexpession="NotNull" class="form-control" isvalid="yes" rows="3"
+                          placeholder="连接url信息" type="text" v-model="sysDatasourceConfig.url"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">用户名<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input checkexpession="NotNull" class="form-control" isvalid="yes"
+                       placeholder="用户名" type="text" v-model="sysDatasourceConfig.userName">
+            </td>
+            <td class="formTitle">密码<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input checkexpession="NotNull" class="form-control" isvalid="yes"
+                       placeholder="密码" type="password" v-model="sysDatasourceConfig.passWord">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">初始化连接数<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input checkexpession="NumOrNull" isvalid="yes" class="form-control"
+                       placeholder="初始化时建立物理连接的个数" type="number" v-model="sysDatasourceConfig.initialSize">
+            </td>
+            <td class="formTitle">最大连接数<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input checkexpession="NumOrNull" isvalid="yes" class="form-control"
+                       placeholder="最大连接池数量" type="number" v-model="sysDatasourceConfig.maxActive">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">最小连接数<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input checkexpession="NumOrNull" isvalid="yes" class="form-control"
+                       placeholder="最小连接池数量" type="number" v-model="sysDatasourceConfig.minIdle">
+            </td>
+            <td class="formTitle">连接等待时间<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input checkexpession="NumOrNull" isvalid="yes" class="form-control"
+                       placeholder="获取连接时最大等待时间" type="number" v-model="sysDatasourceConfig.maxWait">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">防火墙</td>
+            <td class="formValue">
+                <input class="form-control" placeholder="防火墙" type="text" v-model="sysDatasourceConfig.filters">
+            </td>
+            <td class="formTitle">预留字段</td>
+            <td class="formValue">
+                <input class="form-control" placeholder="预留字段" type="text" v-model="sysDatasourceConfig.code">
+            </td>
+
+        </tr>
+        <tr>
+            <td class="formTitle">备注</td>
+            <td class="formValue" colspan="3">
+                <textarea class="form-control" rows="3"
+                          placeholder="备注" type="text" v-model="sysDatasourceConfig.remark"></textarea>
+            </td>
+        </tr>
+    </table>
+</div>
+<#include "../../include/footer.html">
+<script src="${springMacroRequestContext.contextPath}/js/system/dataSource/edit.js?_${.now?time}"></script>
+</body>
+</html>

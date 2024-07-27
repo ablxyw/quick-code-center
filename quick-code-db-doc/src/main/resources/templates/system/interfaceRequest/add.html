@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <#include "../../include/header.html">
+</head>
+
+<body>
+<div id="dpCode" class="container-fluid" v-cloak>
+    <table class="form" id="form">
+        <tr>
+            <td class="formTitle">数据源Id<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="数据源Id"
+                       v-model="sysInterfaceRequest.datasourceId" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">配置Id<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="配置Id"
+                       v-model="sysInterfaceRequest.configId" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求uri<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="请求uri"
+                       v-model="sysInterfaceRequest.requestUri" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求类型<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="请求类型"
+                       v-model="sysInterfaceRequest.requestType" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求参数<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="请求参数"
+                       v-model="sysInterfaceRequest.requestParam" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">查询SQL<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="查询SQL"
+                       v-model="sysInterfaceRequest.querySql" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">请求耗时<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="请求耗时"
+                       v-model="sysInterfaceRequest.requestTime" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">客户端ip<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="客户端ip"
+                       v-model="sysInterfaceRequest.clientIp" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">浏览器<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="浏览器"
+                       v-model="sysInterfaceRequest.browserName" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">浏览器版本<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="浏览器版本"
+                       v-model="sysInterfaceRequest.browserVersion" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">操作系统<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="操作系统"
+                       v-model="sysInterfaceRequest.osName" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">是否成功<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="是否成功"
+                       v-model="sysInterfaceRequest.success" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">返回信息<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="返回信息"
+                       v-model="sysInterfaceRequest.message" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+        <tr>
+            <td class="formTitle">数据条数<font face="宋体">*</font></td>
+            <td class="formValue">
+                <input type="text" class="form-control" placeholder="数据条数"
+                       v-model="sysInterfaceRequest.dataSize" isvalid="yes" checkexpession="NotNull">
+            </td>
+        </tr>
+    </table>
+</div>
+<#include "../../include/footer.html">
+<script src="${springMacroRequestContext.contextPath}/js/system/interfaceRequest/add.js?_${.now?time}"></script>
+</body>
+</html>

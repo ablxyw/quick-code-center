@@ -1,0 +1,25 @@
+# quickDatabase其它配置
+qFrame:
+  # 系统信息
+  sysInfo:
+    # 标题
+    title: QuickApi
+    # 版本
+    version: 1.1.4
+    # 公司或者项目链接地址
+    companyUrl: https://www.ablxyw.com.cn
+    # 公司或者项目名称
+    companyName: quick-code
+    # 主题 :default,dark
+    theme: default
+  # 指标SQL中是否支持$替换参数
+  enableDollar: false
+  # 动态api前缀,不以斜杠开始,以斜杠结尾
+  apiPrefix: api/
+  # 是否开启登录功能
+  login: false
+
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

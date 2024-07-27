@@ -82,6 +82,18 @@ public class GlobalConstants {
      */
     public static final String POINT = ".";
     /**
+     * png
+     */
+    public static final String PNG_CODE = "png";
+    /**
+     * jpeg
+     */
+    public static final String JPEG_CODE = "jpeg";
+    /**
+     * jpg
+     */
+    public static final String JPG_CODE = "jpg";
+    /**
      * linux
      */
     public static final String LINUX_NAME = "linux";
@@ -651,6 +663,11 @@ public class GlobalConstants {
      * javascript
      */
     public static final String JAVA_SCRIPT = "javascript";
+
+    /**
+     * 默认原始ID
+     */
+    public static final String DEFAULT_PARENT_ID = "-1";
 
     /**
      * 覆盖java默认的证书验证

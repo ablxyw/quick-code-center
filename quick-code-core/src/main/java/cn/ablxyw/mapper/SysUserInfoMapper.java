@@ -8,6 +8,6 @@ import cn.ablxyw.entity.SysUserInfo;
  * @author 魏强
  * @since 2018-10-12 16:54:15
  */
-public interface SysUserInfoMapper extends BaseMapper<SysUserInfo, String> {
+public interface SysUserInfoMapper extends QuickBaseMapper<SysUserInfo, String> {
 
 }

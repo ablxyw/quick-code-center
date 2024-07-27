@@ -1,0 +1,76 @@
+# quickFlowable服务配置
+spring:
+  profiles:
+    active: dev
+#    include: quickFlowable
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  application:
+    name: quickFlowable
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  mvc:
+    locale: zh_CN
+    format:
+      date-time: yyyy-MM-dd HH:mm:ss
+  pid:
+    file: ${server.tomcat.basedir}/${spring.application.name}.pid
+  #freemarker
+  freemarker:
+    #req访问request
+    request-context-attribute: req
+    #后缀名
+    suffix:
+    content-type: text/html
+    enabled: true
+    #缓存配置
+    cache: false
+    #模板加载路径 按需配置
+    template-loader-path: classpath:/templates/
+    #编码格式
+    charset: UTF-8
+    # setRequestContextAttribute
+    settings:
+      #数字格式化，无小数点
+      number_format: '0.##'
+  main:
+    allow-bean-definition-overriding: true
+  activiti:
+    #每次应用启动不检查Activiti数据表是否存在及版本号是否匹配，提升应用启动速度
+    database-schema-update: true
+    #在项目单独作为一个引擎，本身不部署流程的时候，如果resources目录没有“processes”目录，启动项目报错–找不到processes目录。需要在配置文件中添加以下内容：
+    check-process-definitions: false
+    process-definition-location-prefix: classpath:/processes/
+    process-definition-location-suffixes:
+      -**.bpmn
+      -**.bpmn20.xml
+    #保存历史数据级别设置为full最高级别，便于历史数据的追溯
+    history-level: full
+    db-history-used: true
+# 服务端口号
+server:
+  port: 9090
+  tomcat:
+    # 解决上传文件丢失问题
+    basedir: ${user.home}/spring-boot/${spring.application.name}/tomcat
+  #客户端Http请求、响应的Header的最大限制
+  max-http-header-size: 10MB
+  #压缩数据传输
+  compression:
+    enabled: true
+    min-response-size: 1024
+    mime-types:
+      - image/png
+      - image/jpeg
+      - image/jpg
+      - text/html
+      - application/javascript
+      - text/css
+      - application/octet-stream
+      - application/json
+  servlet:
+    # 可以根据具体的应用修改
+    context-path: /quickFlowableApi
