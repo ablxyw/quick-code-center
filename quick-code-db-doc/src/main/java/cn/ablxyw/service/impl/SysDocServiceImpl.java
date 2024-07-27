@@ -19,7 +19,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.List;
 import java.util.Objects;
@@ -64,7 +63,8 @@ public class SysDocServiceImpl implements SysDocService {
         } catch (Exception e) {
             return ResponseEntity.ok(ResultUtil.error(GlobalEnum.DataEmpty));
         }
-        ResultEntity resultEntity = tableInfoService.list(TableInfoEntity.builder().build());
+        tableSchema = StringUtils.isBlank(tableSchema) ? EMPTY_STRING : tableSchema;
+        ResultEntity resultEntity = tableInfoService.list(TableInfoEntity.builder().tableSchema(tableSchema).build());
         List<TableInfoEntity> tableInfoEntities = (List<TableInfoEntity>) resultEntity.getData();
         if (Objects.isNull(tableInfoEntities) || tableInfoEntities.size() < 1) {
             return ResponseEntity.ok(ResultUtil.error(GlobalEnum.DataEmpty));
